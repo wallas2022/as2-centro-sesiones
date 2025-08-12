@@ -12,50 +12,39 @@ services:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
-      interval: 5s
+      interval: 10s
       timeout: 5s
-      retries: 5
+      retries: 10
 
   keycloak:
     image: quay.io/keycloak/keycloak:22.0.5
     depends_on:
       postgres:
         condition: service_healthy
-    command:  >
-      bash -c "
-      /opt/keycloak/bin/kc.sh build --db=postgres --db-url=jdbc:postgresql://postgres:5432/${DB_NAME} --db-username=${DB_USER} --db-password=${DB_PASSWORD} &&
-      /opt/keycloak/bin/kc.sh start --optimized 
-      --hostname=${KC_HOSTNAME} 
-      --hostname-strict=false 
-      --hostname-strict-https=false 
-      --http-enabled=true 
-      --http-port=8080 
-      --proxy=edge 
-      --db=postgres 
-      --db-url=jdbc:postgresql://postgres:5432/${DB_NAME} 
-      --db-username=${DB_USER} 
+    command: >
+      /opt/keycloak/bin/kc.sh start
+      --hostname=${KC_HOSTNAME}
+      --http-enabled=true
+      --http-port=8080
+      --proxy=edge
+      --db=postgres
+      --db-url=jdbc:postgresql://postgres:5432/${DB_NAME}
+      --db-username=${DB_USER}
       --db-password=${DB_PASSWORD}
-      "
+      --hostname-strict=false
+      --hostname-strict-https=false
+      --optimized
     environment:
-      KC_HOSTNAME: ${KC_HOSTNAME}
-      KC_PROXY: edge
-      KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://postgres:5432/${DB_NAME}
-      KC_DB_USERNAME: ${DB_USER}
-      KC_DB_PASSWORD: ${DB_PASSWORD}
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
-      KC_HOSTNAME_STRICT: "false"
-      KC_HOSTNAME_STRICT_HTTPS: "false"
-      KC_HTTP_ENABLED: "true"
     ports:
       - "8080:8080"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/health/ready"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 40s
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 60s
+      timeout: 20s
+      retries: 3
+      start_period: 180s
 
 volumes:
   postgres_data:
