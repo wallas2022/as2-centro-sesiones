@@ -22,6 +22,6 @@ services:
 
   - type: postgres
     name: ${DB_NAME}
-    plan: starter
+    plan: free
     databaseName: ${DB_NAME}
     user: ${DB_USER}
