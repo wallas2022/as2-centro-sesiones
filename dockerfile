@@ -1,9 +1,13 @@
 # Usa la imagen oficial de Keycloak 24
 FROM quay.io/keycloak/keycloak:24.0.3
 
-# Define el comando para arrancar en modo desarrollo y escuchar en todas las interfaces
-ENTRYPOINT ["kc.sh"]
-CMD ["start-dev", "--http-host=0.0.0.0"]
+# Configuración recomendada para producción:
+# 1. Solo definimos el ENTRYPOINT, el CMD se inyectará desde docker-compose o runtime
+# 2. Usamos la ruta completa al ejecutable
+ENTRYPOINT ["/opt/keycloak/bin/kc.sh"]
 
-# Expone el puerto 8080 (opcional, Render lo hace automáticamente)
+# (Opcional) Puedes agregar configuración base si lo prefieres
+# COPY conf/keycloak.conf /opt/keycloak/conf/
+
+# Exponemos el puerto (aunque Render lo maneja automáticamente)
 EXPOSE 8080
