@@ -21,10 +21,21 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    command: >
+    command:  >
       bash -c "
-      /opt/keycloak/bin/kc.sh build --db postgres --db-url-host postgres --db-username ${DB_USER} --db-password ${DB_PASSWORD} &&
-      /opt/keycloak/bin/kc.sh start --optimized --hostname=${KC_HOSTNAME} --proxy=edge --http-enabled=true --hostname-strict=false --hostname-strict-https=false
+      /opt/keycloak/bin/kc.sh build --db=postgres --db-url=jdbc:postgresql://postgres:5432/${DB_NAME} --db-username=${DB_USER} --db-password=${DB_PASSWORD} &&
+      /opt/keycloak/bin/kc.sh start --optimized 
+      --hostname=${KC_HOSTNAME} 
+      --hostname-strict=false 
+      --hostname-strict-https=false 
+      --http-enabled=true 
+      --http-port=8080 
+      --proxy=edge 
+      --db=postgres 
+      --db-url=jdbc:postgresql://postgres:5432/${DB_NAME} 
+      --db-username=${DB_USER} 
+      --db-password=${DB_PASSWORD}
+      "
     environment:
       KC_HOSTNAME: ${KC_HOSTNAME}
       KC_PROXY: edge
