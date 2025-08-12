@@ -8,20 +8,20 @@ services:
     healthCheckPath: /health/ready
     envVars:
       - key: KC_HOSTNAME
-        value: your-app-name.onrender.com
+        value: as2-centro-sesiones.onrender.com
       - key: DB_NAME
-        value: keycloak
+        value: ${DB_NAME}
       - key: DB_USER
         generateValue: true
-      - key: DB_PASSWORD
+      - key: ${DB_PASSWORD}
         generateValue: true
       - key: KEYCLOAK_ADMIN
-        value: admin
+        value: ${DB_USER}
       - key: KEYCLOAK_ADMIN_PASSWORD
         generateValue: true
 
   - type: postgres
-    name: keycloak-db
-    plan: free # o "starter" para producción
-    databaseName: keycloak
-    user: keycloak
+    name: ${DB_NAME}
+    plan: start
+    databaseName: ${DB_NAME}
+    user: ${DB_USER}

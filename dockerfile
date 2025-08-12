@@ -1,13 +1,13 @@
-# Usa la imagen oficial de Keycloak 24
-FROM quay.io/keycloak/keycloak:24.0.3
+FROM quay.io/keycloak/keycloak:22.0.5 as builder
 
-# Configuración recomendada para producción:
-# 1. Solo definimos el ENTRYPOINT, el CMD se inyectará desde docker-compose o runtime
-# 2. Usamos la ruta completa al ejecutable
-ENTRYPOINT ["/opt/keycloak/bin/kc.sh"]
+# Habilitar características y temas personalizados
+RUN /opt/keycloak/bin/kc.sh build
 
-# (Opcional) Puedes agregar configuración base si lo prefieres
-# COPY conf/keycloak.conf /opt/keycloak/conf/
+FROM quay.io/keycloak/keycloak:22.0.5
+COPY --from=builder /opt/keycloak/lib/quarkus/ /opt/keycloak/lib/quarkus/
 
-# Exponemos el puerto (aunque Render lo maneja automáticamente)
-EXPOSE 8080
+# Copiar temas personalizados si los tienes
+# COPY themes/ /opt/keycloak/themes/
+
+WORKDIR /opt/keycloak
+ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start", "--optimized"]
