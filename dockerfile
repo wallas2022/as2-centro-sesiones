@@ -1,4 +1,4 @@
-FROM quay.io/keycloak/keycloak:22.0.5-ubi
+FROM quay.io/keycloak/keycloak:22.0.5
 
 USER root
 RUN microdnf install wget tar gzip && \
