@@ -36,7 +36,7 @@ services:
       --metrics-enabled=true
       --log-level=INFO
       --cache=local
-      --optimized
+    
     environment:
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
