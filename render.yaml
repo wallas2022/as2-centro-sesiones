@@ -27,6 +27,8 @@ services:
       value: edge
     - key: KC_HOSTNAME_STRICT
       value: "false"
+    - key: KC_COMMAND
+      value: start
 
 
 
