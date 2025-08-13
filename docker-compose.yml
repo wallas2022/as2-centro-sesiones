@@ -23,7 +23,7 @@ services:
         condition: service_healthy
     command: >
       /opt/keycloak/bin/kc.sh start
-      --hostname=${KC_HOSTNAME}
+      --hostname=https://as2-centro-sesiones.onrender.com/
       --http-enabled=true
       --http-port=8080
       --proxy=edge
