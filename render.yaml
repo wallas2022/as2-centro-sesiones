@@ -8,20 +8,24 @@ services:
     healthCheckPath: /health/ready
     envVars:
       - key: KC_HOSTNAME
-        value: ${KC_HOSTNAME}
+        value: as2-centro-sesiones.onrender.com
       - key: DB_NAME
-        value: ${DB_NAME}
+        value: bd_modulo_admin
       - key: DB_USER
-        generateValue: true
-      - key: ${DB_PASSWORD}
+        value: dba
+      - key: DB_PASSWORD  
+        value: oTR1mAvAQfCNhLpKK7YpUIUyQrva2Ez4
         generateValue: true
       - key: KEYCLOAK_ADMIN
-        value: ${DB_USER}
+        value: admin
       - key: KEYCLOAK_ADMIN_PASSWORD
         generateValue: true
+      - key: KC_PROXY
+        value: dba
+
 
   - type: postgres
-    name: ${DB_NAME}
+    name: dpg-d2dm7a8dl3ps73b6dp8g-a
     plan: free
-    databaseName: ${DB_NAME}
-    user: ${DB_USER}
+    databaseName: bd_modulo_admin
+    user: dba
