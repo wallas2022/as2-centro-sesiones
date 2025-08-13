@@ -1,1 +1,30 @@
+services:
+  - type: web
+    name: keycloak
+    runtime: docker
+    plan: free
+    env: docker
+    port: 8080
+    healthCheckPath: /health/ready
+    envVars:
+      - key: KC_HOSTNAME
+        value: as2-centro-sesiones.onrender.com
+      - key: DB_HOST
+        value: dpg-d2dm7a8dl3ps73b6dp8g-a.oregon-postgres.render.com
+      - key: DB_NAME
+        value: bd_modulo_admin
+      - key: DB_USER
+        value: dba
+      - key: DB_PASSWORD
+        value: oTR1mAvAQfCNhLpKK7YpUIUyQrva2Ez4
+      - key: KEYCLOAK_ADMIN
+        value: admin
+      - key: KEYCLOAK_ADMIN_PASSWORD
+        value: x9Bu13HeEC48nqDi
+
+  - type: postgres
+    name: dpg-d2dm7a8dl3ps73b6dp8g-a
+    plan: free
+    databaseName: bd_modulo_admin
+    user: dba
 
