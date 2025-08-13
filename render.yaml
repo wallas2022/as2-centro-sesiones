@@ -4,13 +4,21 @@ services:
     runtime: docker
     plan: free
     env: docker
+    dockerfile: Dockerfile
     port: 8080
-    startCommand: /opt/keycloak/bin/kc.sh start \
-      --hostname=as2-centro-sesiones.onrender.com \
-      --hostname-strict=false \
-      --http-port=8080 \
-      --proxy=edge \
-      --db-url=jdbc:postgresql://dpg-d2dm7a8dl3ps73b6dp8g-a.oregon-postgres.render.com:5432/bd_modulo_admin \
-      --db-username=dba \
-      --db-password=oTR1mAvAQfCNhLpKK7YpUIUyQrva2Ez4
-    envVarsFromFile: .env
+    healthCheckPath: /health/ready
+    envVars:
+      - key: KC_HOSTNAME
+        value: as2-centro-sesiones.onrender.com
+      - key: KC_PROXY
+        value: edge
+      - key: KC_DB_URL
+        value: jdbc:postgresql://dpg-d2dm7a8dl3ps73b6dp8g-a.oregon-postgres.render.com:5432/bd_modulo_admin
+      - key: KC_DB_USERNAME
+        value: dba
+      - key: KC_DB_PASSWORD
+        fromSecret: true
+      - key: KEYCLOAK_ADMIN
+        value: admin
+      - key: KEYCLOAK_ADMIN_PASSWORD
+        fromSecret: true
