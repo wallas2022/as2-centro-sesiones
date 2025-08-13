@@ -14,4 +14,4 @@ COPY --from=builder /opt/keycloak/lib/quarkus/ /opt/keycloak/lib/quarkus/
 WORKDIR /opt/keycloak
 EXPOSE 8080
 
-ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start","--hostname-strict=false","--http-enabled=true","--http-port=8080","--hostname=${KC_HOSTNAME}","--db-url=${KC_DB_URL}","--db-username=${KC_DB_USERNAME}","--db-password=${KC_DB_PASSWORD}"]
+ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start","--hostname-strict=false","--http-enabled=true","--http-port=8080","--hostname=${KC_HOSTNAME}"]

@@ -10,12 +10,6 @@ services:
     envVars:
       - key: KC_HOSTNAME
         value: as2-centro-sesiones.onrender.com
-      - key: KC_DB_URL
-        value: jdbc:postgresql://dpg-d2dm7a8dl3ps73b6dp8g-a.oregon-postgres.render.com:5432/bd_modulo_admin
-      - key: KC_DB_USERNAME
-        value: dba
-      - key: KC_DB_PASSWORD
-        fromSecret: true
       - key: KEYCLOAK_ADMIN
         value: admin
       - key: KEYCLOAK_ADMIN_PASSWORD
