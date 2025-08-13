@@ -7,33 +7,32 @@ services:
     port: 8080
     healthCheckPath: /realms/master
     envVars:
-    - key: KC_HOSTNAME
-      value: as2-centro-sesiones.onrender.com
-    - key: KC_DB
-      value: postgres
-    - key: KC_DB_URL
-      value: jdbc:postgresql://dpg-d2dm7a8dl3ps73b6dp8g-a.oregon-postgres.render.com:5432/bd_modulo_admin
-    - key: KC_DB_USERNAME
-      value: dba
-    - key: KC_DB_PASSWORD
-      value: oTR1mAvAQfCNhLpKK7YpUIUyQrva2Ez4
-    - key: KEYCLOAK_ADMIN
-      value: admin
-    - key: KEYCLOAK_ADMIN_PASSWORD
-      value: x9Bu13HeEC48nqDi
-    - key: KC_HTTP_PORT
-      value: "8080"
-    - key: KC_PROXY
-      value: edge
-    - key: KC_HOSTNAME_STRICT
-      value: "false"
-    - key: KC_COMMAND
-      value: start
-
-
+      - key: KC_COMMAND
+        value: start
+      - key: KC_HOSTNAME
+        value: as2-centro-sesiones.onrender.com
+      - key: KC_DB
+        value: postgres
+      - key: KC_DB_URL
+        value: jdbc:postgresql://dpg-d2dm7a8dl3ps73b6dp8g-a.oregon-postgres.render.com:5432/bd_modulo_admin
+      - key: KC_DB_USERNAME
+        value: dba
+      - key: KC_DB_PASSWORD
+        value: oTR1mAvAQfCNhLpKK7YpUIUyQrva2Ez4
+      - key: KEYCLOAK_ADMIN
+        value: admin
+      - key: KEYCLOAK_ADMIN_PASSWORD
+        value: x9Bu13HeEC48nqDi
+      - key: KC_HTTP_PORT
+        value: "8080"
+      - key: KC_PROXY
+        value: edge
+      - key: KC_HOSTNAME_STRICT
+        value: "false"
 
   - type: postgres
     name: dpg-d2dm7a8dl3ps73b6dp8g-a
     plan: free
     databaseName: bd_modulo_admin
     user: dba
+    # Render generará la contraseña automáticamente si no la defines aquí
