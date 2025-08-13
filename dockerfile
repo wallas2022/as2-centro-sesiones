@@ -1,14 +1,8 @@
-FROM quay.io/keycloak/keycloak:22.0.5 as builder
-
-# Enable features
-ENV KC_HEALTH_ENABLED=true
-ENV KC_METRICS_ENABLED=true
-ENV KC_CACHE_CONFIG_FILE=cache-local.xml
-
-RUN /opt/keycloak/bin/kc.sh build
-
+# Imagen oficial de Keycloak
 FROM quay.io/keycloak/keycloak:22.0.5
-COPY --from=builder /opt/keycloak/lib/quarkus/ /opt/keycloak/lib/quarkus/
 
-WORKDIR /opt/keycloak
-ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start", "--optimized"]
+# Usamos start en modo producción
+ENTRYPOINT ["/opt/keycloak/bin/kc.sh"]
+
+# Comando para producción
+CMD ["start","--hostname=${KC_HOSTNAME}","--hostname-strict=false","--hostname-strict-https=false","--http-enabled=true","--http-port=8080","--proxy=edge","--db=postgres","--db-url=jdbc:postgresql://${DB_HOSTNAME}:5432/${DB_NAME}","--db-username=${DB_USER}","--db-password=${DB_PASSWORD}","--health-enabled=true","--metrics-enabled=true","--log-level=INFO"]

@@ -1,26 +1,33 @@
-keycloak:
-  image: quay.io/keycloak/keycloak:22.0.5
-  depends_on:
-    postgres:
-      condition: service_healthy
-  command: >
-    /opt/keycloak/bin/kc.sh start
-    --hostname=${KC_HOSTNAME}
-    --http-enabled=true
-    --http-port=8080
-    --proxy=edge
-    --db=postgres
-    --db-url=jdbc:postgresql://postgres:5432/${DB_NAME}
-    --db-username=${DB_USER}
-    --db-password=${DB_PASSWORD}
-    --hostname-strict=false
-    --health-enabled=true
-    --metrics-enabled=true
-    --log-level=INFO
-  environment:
-    KC_PROXY: edge
-    KC_HOSTNAME: as2-centro-sesiones.onrender.com
-    KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
-    KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
-  ports:
-    - "8080:8080"
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:22.0.5
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command:
+      - /opt/keycloak/bin/kc.sh
+      - start
+      - --hostname=$(KC_HOSTNAME)
+      - --hostname-strict=false
+      - --hostname-strict-https=false
+      - --http-enabled=true
+      - --http-port=8080
+      - --proxy=edge
+      - --db=postgres
+      - --db-url=jdbc:postgresql://$(DB_HOSTNAME):5432/$(DB_NAME)
+      - --db-username=$(DB_USER)
+      - --db-password=$(DB_PASSWORD)
+      - --health-enabled=true
+      - --metrics-enabled=true
+      - --log-level=INFO
+    environment:
+      KC_HOSTNAME: ${KC_HOSTNAME}
+      KC_PROXY: edge
+      DB_HOSTNAME: ${DB_HOSTNAME}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+    ports:
+      - "8080:8080"

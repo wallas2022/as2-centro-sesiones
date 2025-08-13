@@ -2,7 +2,7 @@ services:
   - type: web
     name: keycloak
     runtime: docker
-    plan: free # o "starter" para más recursos
+    plan: free
     env: docker
     port: 8080
     healthCheckPath: /health/ready
@@ -10,25 +10,25 @@ services:
       - key: KC_HOSTNAME
         value: as2-centro-sesiones.onrender.com
       - key: KC_PROXY
-        value: edge  
+        value: edge
+      - key: KC_HTTP_ENABLED
+        value: "true"
+      - key: KC_HOSTNAME_STRICT
+        value: "false"
+      - key: KC_HOSTNAME_STRICT_HTTPS
+        value: "false"
+      - key: DB_HOSTNAME
+        value: dpg-d2dm7a8dl3ps73b6dp8g-a
       - key: DB_NAME
         value: bd_modulo_admin
       - key: DB_USER
         value: dba
-      - key: DB_PASSWORD  
+      - key: DB_PASSWORD
         value: oTR1mAvAQfCNhLpKK7YpUIUyQrva2Ez4
-        generateValue: true
       - key: KEYCLOAK_ADMIN
         value: admin
       - key: KEYCLOAK_ADMIN_PASSWORD
-        generateValue: true
-      - key: KC_PROXY
-        value: dba
-      - key: KC_HTTP_ENABLED
-        value: "true"  
-      - key: KC_HOSTNAME_STRICT_HTTPS
-        value: "false"  
-
+        value: x9Bu13HeEC48nqDi
 
   - type: postgres
     name: dpg-d2dm7a8dl3ps73b6dp8g-a
