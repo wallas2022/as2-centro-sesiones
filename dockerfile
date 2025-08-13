@@ -17,4 +17,4 @@ COPY --from=builder /opt/keycloak/conf/ /opt/keycloak/conf/
 WORKDIR /opt/keycloak
 
 # Comando de inicio: fuerza HTTP en puerto 8080
-ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start","--optimized","--http-enabled=true","--http-port=8080","--hostname-strict=false","--hostname=${KC_HOSTNAME}","--db=postgres","--db-url=${KC_DB_URL}","--db-username=${KC_DB_USERNAME}","--db-password=${KC_DB_PASSWORD}"]
+ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start","--optimized","--http-port=8080","--hostname=${KC_HOSTNAME}"]
