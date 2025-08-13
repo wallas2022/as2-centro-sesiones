@@ -11,4 +11,4 @@ ENV KEYCLOAK_ADMIN_PASSWORD=${KEYCLOAK_ADMIN_PASSWORD}
 # COPY themes /opt/keycloak/themes
 
 # Comando final: producción optimizada
-ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start", "--optimized", "--hostname=${KC_HOSTNAME}", "--proxy=edge"]
+CMD sh -c "/opt/keycloak/bin/kc.sh start --optimized --hostname=$KC_HOSTNAME --proxy=edge"
