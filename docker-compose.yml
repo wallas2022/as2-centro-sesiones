@@ -1,53 +1,26 @@
-version: '3.8'
-
-services:
-  postgres:
-    image: postgres:15-alpine
-    restart: always
-    environment:
-      POSTGRES_DB: ${DB_NAME}
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
-
-  keycloak:
-    image: quay.io/keycloak/keycloak:22.0.5
-    depends_on:
-      postgres:
-        condition: service_healthy
-    command: >
-      /opt/keycloak/bin/kc.sh start-dev
-      --hostname=as2-centro-sesiones.onrender.com
-      --http-enabled=true
-      --http-port=8080
-      --proxy=edge
-      --db=postgres
-      --db-url=jdbc:postgresql://postgres:5432/${DB_NAME}
-      --db-username=${DB_USER}
-      --db-password=${DB_PASSWORD}
-      --hostname-strict=false
-      --health-enabled=true
-      --metrics-enabled=true
-      --log-level=INFO
-      --cache=local
-    
-    environment:
-      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
-      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
-    ports:
-      - "8080:8080"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080"]
-      interval: 60s
-      timeout: 20s
-      retries: 3
-      start_period: 180s
-
-volumes:
-  postgres_data:
+keycloak:
+  image: quay.io/keycloak/keycloak:22.0.5
+  depends_on:
+    postgres:
+      condition: service_healthy
+  command: >
+    /opt/keycloak/bin/kc.sh start
+    --hostname=${KC_HOSTNAME}
+    --http-enabled=true
+    --http-port=8080
+    --proxy=edge
+    --db=postgres
+    --db-url=jdbc:postgresql://postgres:5432/${DB_NAME}
+    --db-username=${DB_USER}
+    --db-password=${DB_PASSWORD}
+    --hostname-strict=false
+    --health-enabled=true
+    --metrics-enabled=true
+    --log-level=INFO
+  environment:
+    KC_PROXY: edge
+    KC_HOSTNAME: as2-centro-sesiones.onrender.com
+    KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+    KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+  ports:
+    - "8080:8080"
