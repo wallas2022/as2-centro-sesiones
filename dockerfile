@@ -1,5 +1,7 @@
 FROM quay.io/keycloak/keycloak:22.0.5 as builder
 
+EXPOSE 8080
+
 # Configuración para instancia única
 ENV KC_CACHE=local
 RUN /opt/keycloak/bin/kc.sh build
