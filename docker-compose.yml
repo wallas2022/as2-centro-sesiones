@@ -23,7 +23,7 @@ services:
         condition: service_healthy
     command: >
       /opt/keycloak/bin/kc.sh start
-      --hostname=localhost/
+      --hostname=as2-centro-sesiones.onrender.com
       --http-enabled=true
       --http-port=8080
       --proxy=edge
@@ -32,7 +32,10 @@ services:
       --db-username=${DB_USER}
       --db-password=${DB_PASSWORD}
       --hostname-strict=false
-      --hostname-strict-https=false
+      --health-enabled=true
+      --metrics-enabled=true
+      --log-level=INFO
+      --cache=local
       --optimized
     environment:
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}

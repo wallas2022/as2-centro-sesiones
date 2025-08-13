@@ -9,6 +9,8 @@ services:
     envVars:
       - key: KC_HOSTNAME
         value: as2-centro-sesiones.onrender.com
+      - key: KC_PROXY
+        value: edge  
       - key: DB_NAME
         value: bd_modulo_admin
       - key: DB_USER
@@ -22,6 +24,8 @@ services:
         generateValue: true
       - key: KC_PROXY
         value: dba
+      - key: KC_HTTP_ENABLED
+        value: "true"  
 
 
   - type: postgres

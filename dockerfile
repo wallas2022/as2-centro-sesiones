@@ -1,13 +1,14 @@
 FROM quay.io/keycloak/keycloak:22.0.5 as builder
 
-# Habilitar características y temas personalizados
+# Enable features
+ENV KC_HEALTH_ENABLED=true
+ENV KC_METRICS_ENABLED=true
+ENV KC_CACHE_CONFIG_FILE=cache-local.xml
+
 RUN /opt/keycloak/bin/kc.sh build
 
 FROM quay.io/keycloak/keycloak:22.0.5
 COPY --from=builder /opt/keycloak/lib/quarkus/ /opt/keycloak/lib/quarkus/
-
-# Copiar temas personalizados si los tienes
-# COPY themes/ /opt/keycloak/themes/
 
 WORKDIR /opt/keycloak
 ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start", "--optimized"]
