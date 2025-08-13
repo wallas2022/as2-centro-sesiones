@@ -10,7 +10,7 @@ services:
       --hostname-strict=false \
       --http-port=8080 \
       --proxy=edge \
-      --db=postgres \
       --db-url=jdbc:postgresql://dpg-d2dm7a8dl3ps73b6dp8g-a.oregon-postgres.render.com:5432/bd_modulo_admin \
       --db-username=dba \
       --db-password=oTR1mAvAQfCNhLpKK7YpUIUyQrva2Ez4
+    envVarsFromFile: .env
