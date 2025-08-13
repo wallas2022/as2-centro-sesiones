@@ -6,6 +6,7 @@ services:
     env: docker
     port: 8080
     healthCheckPath: /health/ready
+    healthCheckInterval: 20s
     envVars:
       - key: KC_HOSTNAME
         value: as2-centro-sesiones.onrender.com

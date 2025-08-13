@@ -1,6 +1,8 @@
 # Imagen oficial de Keycloak
 FROM quay.io/keycloak/keycloak:22.0.5
 
+EXPOSE 8080
+
 # Usamos start en modo producción
 ENTRYPOINT ["/opt/keycloak/bin/kc.sh"]
 
