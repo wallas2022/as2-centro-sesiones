@@ -1,33 +1,8 @@
+
 services:
   keycloak:
-    image: quay.io/keycloak/keycloak:22.0.5
-    depends_on:
-      postgres:
-        condition: service_healthy
-    command:
-      - /opt/keycloak/bin/kc.sh
-      - start
-      - --hostname=$(KC_HOSTNAME)
-      - --hostname-strict=false
-      - --hostname-strict-https=false
-      - --http-enabled=true
-      - --http-port=8080
-      - --proxy=edge
-      - --db=postgres
-      - --db-url=jdbc:postgresql://$(DB_HOSTNAME):5432/$(DB_NAME)
-      - --db-username=$(DB_USER)
-      - --db-password=$(DB_PASSWORD)
-      - --health-enabled=true
-      - --metrics-enabled=true
-      - --log-level=INFO
-    environment:
-      KC_HOSTNAME: ${KC_HOSTNAME}
-      KC_PROXY: edge
-      DB_HOSTNAME: ${DB_HOSTNAME}
-      DB_NAME: ${DB_NAME}
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
-      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
-      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+    build: .
     ports:
       - "8080:8080"
+    env_file:
+      - .env

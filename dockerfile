@@ -1,7 +1,13 @@
-FROM quay.io/keycloak/keycloak:22.0.5
+FROM quay.io/keycloak/keycloak:24.0.3
 
+# Copiamos el .env (Render lo carga automáticamente como variables de entorno, pero sirve localmente)
+COPY .env /opt/keycloak/.env
+
+# Construimos Keycloak optimizado para producción
+RUN /opt/keycloak/bin/kc.sh build
+
+# Puerto que usará Keycloak
 EXPOSE 8080
 
-ENTRYPOINT ["/opt/keycloak/bin/kc.sh"]
-
-CMD ["start","--optimized","--hostname=${KC_HOSTNAME}","--hostname-strict=false","--hostname-strict-https=false","--http-enabled=true","--http-port=8080","--proxy=edge","--db-driver=postgres","--db-url=jdbc:postgresql://${DB_HOST}:5432/${DB_NAME}","--db-username=${DB_USER}","--db-password=${DB_PASSWORD}","--log-level=INFO"]
+# Comando de inicio
+ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start", "--optimized"]
