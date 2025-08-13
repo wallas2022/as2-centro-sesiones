@@ -13,7 +13,7 @@ services:
       - key: KC_PROXY
         value: edge
       - key: KC_DB_URL
-        value: jdbc:postgresql://dpg-d2dm7a8dl3ps73b6dp8g-a.oregon-postgres.render.com:5432/bd_modulo_admin
+        value: jdbc:postgresql://dba:oTR1mAvAQfCNhLpKK7YpUIUyQrva2Ez4@dpg-d2dm7a8dl3ps73b6dp8g-a/bd_modulo_admin
       - key: KC_DB_USERNAME
         value: dba
       - key: KC_DB_PASSWORD
