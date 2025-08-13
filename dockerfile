@@ -6,7 +6,6 @@ RUN /opt/keycloak/bin/kc.sh build
 
 FROM quay.io/keycloak/keycloak:22.0.5
 COPY --from=builder /opt/keycloak/lib/quarkus/ /opt/keycloak/lib/quarkus/
-COPY cache-local.xml /opt/keycloak/conf/  # Copia desde el contexto de construcción
-
+COPY cache-local.xml /opt/keycloak/conf/ 
 WORKDIR /opt/keycloak
 ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start"]
