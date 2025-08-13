@@ -6,20 +6,19 @@ services:
     env: docker
     port: 8080
     healthCheckPath: /health/ready
-    healthCheckInterval: 20s
     envVars:
       - key: KC_HOSTNAME
         value: as2-centro-sesiones.onrender.com
       - key: KC_PROXY
         value: edge
-      - key: KC_HTTP_ENABLED
-        value: "true"
       - key: KC_HOSTNAME_STRICT
         value: "false"
       - key: KC_HOSTNAME_STRICT_HTTPS
         value: "false"
-      - key: DB_HOSTNAME
-        value: dpg-d2dm7a8dl3ps73b6dp8g-a
+      - key: KC_HTTP_ENABLED
+        value: "true"
+      - key: DB_HOST
+        value: dpg-d2dm7a8dl3ps73b6dp8g-a.oregon-postgres.render.com
       - key: DB_NAME
         value: bd_modulo_admin
       - key: DB_USER
@@ -30,9 +29,3 @@ services:
         value: admin
       - key: KEYCLOAK_ADMIN_PASSWORD
         value: x9Bu13HeEC48nqDi
-
-  - type: postgres
-    name: dpg-d2dm7a8dl3ps73b6dp8g-a
-    plan: free
-    databaseName: bd_modulo_admin
-    user: dba
