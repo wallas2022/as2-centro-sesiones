@@ -9,8 +9,6 @@ services:
     envVars:
     - key: KC_HOSTNAME
       value: as2-centro-sesiones.onrender.com
-    - key: KC_HTTP_PORT
-      value: "8080"
     - key: KC_DB
       value: postgres
     - key: KC_DB_URL
@@ -23,8 +21,13 @@ services:
       value: admin
     - key: KEYCLOAK_ADMIN_PASSWORD
       value: x9Bu13HeEC48nqDi
+    - key: KC_HTTP_PORT
+      value: "8080"
     - key: KC_PROXY
       value: edge
+    - key: KC_HOSTNAME_STRICT
+      value: "false"
+
 
 
   - type: postgres
