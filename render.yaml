@@ -5,7 +5,7 @@ services:
     plan: free
     env: docker
     dockerfile: Dockerfile
-    port: 8080
+    port: 8081
     healthCheckPath: /realms/master
     envVars:
       - key: KC_HOSTNAME

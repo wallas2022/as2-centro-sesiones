@@ -12,6 +12,6 @@ COPY --from=builder /opt/keycloak/lib/quarkus/ /opt/keycloak/lib/quarkus/
 # COPY cache-local.xml /opt/keycloak/conf/
 
 WORKDIR /opt/keycloak
-EXPOSE 8080
+EXPOSE 8081
 
 ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start","--hostname-strict=false","--http-enabled=true","--http-port=8080","--hostname=${KC_HOSTNAME}"]
