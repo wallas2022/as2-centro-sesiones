@@ -30,5 +30,5 @@ CMD [ &&\
   "--db-password=${DB_PASSWORD}",&&\
   "--health-enabled=true",&&\
   "--metrics-enabled=true",&&\
-  "--log-level=INFO"
+  "--log-level=INFO"&&\
 ]
