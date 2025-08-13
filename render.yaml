@@ -26,6 +26,8 @@ services:
         value: dba
       - key: KC_HTTP_ENABLED
         value: "true"  
+      - key: KC_HOSTNAME_STRICT_HTTPS
+        value: "false"  
 
 
   - type: postgres
